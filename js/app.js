@@ -29,7 +29,7 @@ let imgArray = ['bag.jpg',
     'wine-glass.jpg'];
 
 let products = [];
-let maxAttempts = 5;
+let maxAttempts = 25;
 let attempt = 1;
 
 welcome.textContent = `Welcome to our page, you can vote to your favorite product ${maxAttempts} times`;
@@ -65,12 +65,19 @@ function renderImg() {
         middleIndex = randomImage();
     }
 
-    leftImg.setAttribute('src', products[leftIndex].imgSrc);
-    middleImg.setAttribute('src', products[middleIndex].imgSrc);
-    rightImg.setAttribute('src', products[rightIndex].imgSrc);
-    products[leftIndex].views++;
-    products[middleIndex].views++;
-    products[rightIndex].views++;
+    if (attempt > maxAttempts) {
+        leftImg.setAttribute('src', 'https://convertingcolors.com/plain-F0F0F0.svg');
+        middleImg.setAttribute('src', 'https://convertingcolors.com/plain-F0F0F0.svg');
+        rightImg.setAttribute('src', 'https://convertingcolors.com/plain-F0F0F0.svg');
+    }
+    else {
+        leftImg.setAttribute('src', products[leftIndex].imgSrc);
+        middleImg.setAttribute('src', products[middleIndex].imgSrc);
+        rightImg.setAttribute('src', products[rightIndex].imgSrc);
+        products[leftIndex].views++;
+        products[middleIndex].views++;
+        products[rightIndex].views++;
+    }
 }
 
 renderImg();
@@ -93,8 +100,9 @@ function clickHandler(event) {
             products[rightIndex].votes++;
         }
 
-        renderImg();
         attempt++;
+        renderImg();
+        console.log(attempt);
         if (attempt <= maxAttempts) {
             attempsEl.textContent = `Attempt ${attempt} of ${maxAttempts}`;
         }
