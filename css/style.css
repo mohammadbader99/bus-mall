@@ -1,0 +1,89 @@
+body {
+    width: 1000px;
+    margin: auto;
+    border: 5px solid black;
+}
+
+header {
+    background-color: black;
+    height: 80px;
+    color: white;
+    text-align: center;
+}
+
+h1 {
+    padding-top: 15px;
+    font-size: 50px;
+}
+
+#welcome {
+    padding: 25px 0px 25px 10px;
+    font-size: 25px;
+}
+
+#attempts {
+    background-color: black;
+    color: white;
+    display: block;
+    width: 250px;
+    margin: auto;
+    text-align: center;
+    font-size: 18px;
+    padding: 10px 0px;
+    border-radius: 10px;
+}
+
+#image-container {
+    background-color: rgb(240, 240, 240);
+    border-radius: 15px;
+    width: 900px;
+    padding: 25px 0px;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 25px;
+    text-align: center;
+    border: 2px solid black;
+}
+
+img {
+    border: 3px solid black;
+    border-radius: 15px;
+    width: 250px;
+    height: 250px;
+    margin: 10px;
+}
+
+#viewResults {
+    display: block;
+    border: none;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    margin: auto;
+    margin-bottom: 20px;
+    font-size: 20px;
+    padding: 10px 20px;
+}
+
+#viewResults:hover {
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    transition: 350ms ease-in;
+}
+
+#results {
+    background-color: rgb(240, 240, 240);
+    font-size: 20px;
+    width: 500px;
+    height: 570px;
+    margin: auto;
+    margin-bottom: 100px;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding-top: 10px;
+}
+
+li {
+    padding: 0px 0px 10px 20px;
+}
