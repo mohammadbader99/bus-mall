@@ -31,6 +31,10 @@ let imgArray = ['bag.jpg',
 let products = [];
 let maxAttempts = 25;
 let attempt = 1;
+let previousImages =[];
+let Names = [];
+let votes = [];
+let views = [];
 
 welcome.textContent = `Welcome to our page, you can vote to your favorite product ${maxAttempts} times`;
 attempsEl.textContent = `Attempt ${attempt} of ${maxAttempts}`;
@@ -41,6 +45,7 @@ function ProductImg(imgName) {
     this.votes = 0;
     this.views = 0;
     products.push(this);
+    Names.push(this.Name);
 }
 
 for (let i = 0; i < imgArray.length; i++) {
@@ -60,9 +65,10 @@ function renderImg() {
     middleIndex = randomImage();
     rightIndex = randomImage();
 
-    while (leftIndex === middleIndex || leftIndex === rightIndex || rightIndex === middleIndex) {
+    while (previousImages.includes(leftIndex) || previousImages.includes(middleIndex) || previousImages.includes(rightIndex) || leftIndex === middleIndex || leftIndex === rightIndex || rightIndex === middleIndex) {
         leftIndex = randomImage();
         middleIndex = randomImage();
+        rightIndex = randomImage();
     }
 
     if (attempt > maxAttempts) {
@@ -74,9 +80,14 @@ function renderImg() {
         leftImg.setAttribute('src', products[leftIndex].imgSrc);
         middleImg.setAttribute('src', products[middleIndex].imgSrc);
         rightImg.setAttribute('src', products[rightIndex].imgSrc);
+
         products[leftIndex].views++;
         products[middleIndex].views++;
         products[rightIndex].views++;
+
+        previousImages[0] = leftIndex;
+        previousImages[1] = middleIndex;
+        previousImages[2] = rightIndex;
     }
 }
 
@@ -127,10 +138,52 @@ function resultsHandler() {
             let liEl = document.createElement('li');
             liEl.textContent = `${products[i].Name} has got ${products[i].votes} votes and was viewed ${products[i].views} times.`;
             results.appendChild(liEl);
+
+            votes.push(products[i].votes);
+            views.push(products[i].views);
         }
         button.removeEventListener('click', resultsHandler);
+        chartRender();
     }
     else {
         alert('You can\'t view the results before you finish the attemps.');
     }
+}
+
+function chartRender() {
+    let ctx = document.getElementById('myChart').getContext('2d');
+    let myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: Names,
+            datasets: [{
+                label: '# of Votes',
+                data: votes,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1
+            }, {
+                label: '# of views',
+                data: views,
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
 }
