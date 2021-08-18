@@ -48,9 +48,27 @@ function ProductImg(imgName) {
     Names.push(this.Name);
 }
 
+function saveToLocalStorage() {
+    let data = JSON.stringify(products);
+    localStorage.setItem('Results', data);
+}
+
+function readFromLocalStorage() {
+    let stringObj = localStorage.getItem('Results');
+    let normalObj = JSON.parse(stringObj);
+
+    if (normalObj) {
+        products = normalObj;
+    }
+
+}
+
+
 for (let i = 0; i < imgArray.length; i++) {
     new ProductImg(imgArray[i]);
 }
+
+readFromLocalStorage();
 
 function randomImage() {
     return Math.floor(Math.random() * products.length);
@@ -142,6 +160,7 @@ function resultsHandler() {
             votes.push(products[i].votes);
             views.push(products[i].views);
         }
+        saveToLocalStorage();
         button.removeEventListener('click', resultsHandler);
         chartRender();
     }
